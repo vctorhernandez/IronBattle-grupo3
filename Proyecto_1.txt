@@ -1,0 +1,95 @@
+Introducción
+En esta tarea, implementarás un simulador de batalla RPG básico que consistirá en tener a dos personajes luchando para determinar un ganador.
+
+Instrucciones
+Veamos los detalles de la tarea:
+
+Clases
+Tres clases y una interfaz son necesarias para completar esta tarea:
+
+Estas clases se llamarán: Personaje, Guerrero y Mago.
+La interfaz se llamará Atacante.
+Interfaz Atacante
+
+Esta interfaz tendrá:
+
+Una función pública void attack() que toma un personaje como parámetro.
+Tenemos dos tipos de personajes, guerreros y magos, que tienen diferentes atributos y estilos de combate. Necesitas crear una clase de personaje (que no pueda ser instanciada) que contenga atributos base que sean comunes para ambos - guerreros y magos.
+
+Clase de personaje
+
+Esta clase tendrá:
+
+Variable llamada id de tipo string, auto-generada (Miembro privado)
+Variable llamada name de tipo string (Private member)
+Variable llamada hp de tipo int, aleatoria entre 100-200 para guerreros y 50-100 para magos, representando los puntos de salud (Private member)
+Variable llamada isAlive de tipo boolean por defecto true (Miembro privado)
+Un constructor «parametrizado» que toma nombre y hp (como parámetros)
+Funciones públicas Getter para acceder a estas variables
+Funciones públicas Setter para cambiar estas variables
+Clase Guerrero
+
+Esta clase deriva de la clase Personaje. Un Guerrero es un Personaje que lucha atacando. Los ataques infligen daño y para hacer uno se necesita stamina.
+
+La clase Guerrero tendrá:
+
+Variable llamada stamina de tipo int, aleatoria entre 10-50, representando un recurso que el guerrero consume para hacer un ataque (Miembro privado)
+Variable llamada strength de tipo int, aleatoria entre 1-10, que mide la fuerza del ataque del guerrero (Private member)
+Funciones públicas Getter para acceder a estas variables
+Funciones públicas Setter para cambiar estas variables
+Un constructor parametrizado que toma nombre, hp, stamina y fuerza
+Una función pública que sobrecarga attack() implementada en la interfaz Attacker, que tomará un personaje como parámetro y reducirá la salud de ese personaje basándose en la fuerza del ataque.
+Clase Mago
+
+Esta clase deriva de la clase Personaje. Un Mago es un Personaje que lucha lanzando hechizos. Los hechizos infligen daño y requieren maná para ser lanzados.
+
+La clase Mago tendrá:
+
+Variable llamada mana de tipo int, aleatoria entre 10-50, representando un recurso que el mago consume para lanzar hechizos (Miembro privado)
+Variable llamada intelligence de tipo int, aleatoria entre 1-50, que mide la fuerza de los hechizos del mago (Private member)
+Funciones públicas Getter para acceder a estas variables
+Funciones públicas Setter para cambiar estas variables
+Un constructor parametrizado que toma nombre, hp, mana e inteligencia
+Una función pública que sobrecarga attack() implementada en la interfaz Attacker, que tomará un personaje como parámetro y reducirá la salud de ese personaje basándose en la inteligencia del hechizo.
+Cómo funciona el simulador de batalla
+Los personajes se crean antes de que comience la batalla. Pueden tener el mismo tipo de personaje o diferentes tipos de personaje.
+
+La batalla es 1 vs. 1 y será por rondas, en cada ronda ambos combatientes atacarán al mismo tiempo (por lo que incluso si un combatiente da el golpe mortal ambos recibirán daño). Por lo que el combate podría acabar en empate. En caso de empate, el combate se reiniciará para tener un único ganador.
+
+Se mostrará un registro completo de la batalla en la línea de comandos. Cuando la batalla termine también se mostrará el ganador.
+
+Ataques de Personajes
+Tanto magos como guerreros tendrán el mismo comando de ataque definido por una interfaz llamada Atacante.
+
+Guerrero:
+
+Los guerreros son personajes fuertes y bien blindados que se centran en el atributo de la fuerza. Cada ronda, un guerrero tendrá aleatoriamente un ataque Fuerte o un ataque Débil. El daño de un ataque Fuerte es igual a su fuerza y cada impacto reducirá su resistencia en 5 puntos. El daño de un ataque Débil es la mitad de su fuerza (truncar decimales). Cada ataque Débil recuperará su aguante en 1.
+
+Si un guerrero no tiene aguante para hacer un ataque Pesado, hará en su lugar un ataque Débil.
+
+Si un guerrero no tiene aguante para hacer un ataque Débil no infligirá ningún daño y recuperará su aguante en 2.
+
+Hechicero:
+
+Los magos son los maestros de lo arcano, su principal atributo es la inteligencia. Cada ronda un mago intentará lanzar al azar una Bola de Fuego o un golpe de Báculo. El daño de una Bola de Fuego es igual a su inteligencia y cada Bola de Fuego disminuirá su maná en 5 puntos. El daño de un golpe de bastón es igual a 2. Cada golpe de bastón recuperará su maná en 1.
+
+Si un mago no tiene mana para lanzar una Bola de Fuego, hará un golpe de Báculo en su lugar.
+
+Si un mago no tiene maná para lanzar un golpe de Báculo no infligirá ningún daño y recuperará su maná en 2.
+
+Requisitos
+Para este proyecto debes realizar todo lo siguiente:
+
+Navega a través de un menú basado en texto usando Entrada y Salida Estándar.
+Crea guerreros y magos individualmente personalizando sus estadísticas y nombre.
+Realiza un duelo entre los personajes y determina el ganador.
+Mantén un registro detallado (en la salida estándar) de cada acción realizada durante los duelos.
+Bono
+Importa personajes usando un archivo CSV.
+Simula toda la batalla con un comando creando personajes aleatorios con estadísticas aleatorias y haciendo que se batan en duelo.
+Notas importantes
+Todos en el equipo deben contribuir por igual al proyecto en tiempo y líneas de código escritas.
+Todo el código debe ser revisado antes de ser fusionado en la rama maestra.
+Todos los miembros del equipo deben participar en la revisión del código.
+Cada repositorio debe tener un archivo README con instrucciones claras, archivos de demostración o cualquier documentación necesaria para que otros equipos no tengan problemas con la revisión.
+Esta tarea pretende ser un reto. Tendrá que depender en gran medida de sus compañeros de equipo y de la investigación independiente. Aprender de forma independiente es el sello distintivo de un buen desarrollador y nuestro trabajo es convertirle en un buen desarrollador. Este proceso puede ser frustrante, ¡pero aprenderás un montón!
