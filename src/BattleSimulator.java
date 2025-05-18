@@ -1,25 +1,47 @@
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class BattleSimulator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Character player1 = null;
-        Character player2 = null;
+        Character player1;
+        Character player2;
 
         System.out.println("=== RPG Battle Simulator ===");
 
-        // Crear primer personaje
-        System.out.print("Nombre del primer personaje: ");
-        String name1 = scanner.nextLine();
-        player1 = createCharacter(scanner, name1);
+        System.out.print("¿Deseas simular una batalla rápida con personajes aleatorios? (s/n): ");
+        String opcion = scanner.nextLine();
 
-        // Crear segundo personaje
-        System.out.print("Nombre del segundo personaje: ");
-        String name2 = scanner.nextLine();
-        player2 = createCharacter(scanner, name2);
+        if (opcion.equalsIgnoreCase("s")) {
+            player1 = generarPersonajeAleatorio("Jugador 1");
+            player2 = generarPersonajeAleatorio("Jugador 2");
+            System.out.println("\nSe han creado los siguientes personajes aleatoriamente:");
+            System.out.println("- " + player1.getName() + " (" + player1.getClass().getSimpleName() + ")");
+            System.out.println("- " + player2.getName() + " (" + player2.getClass().getSimpleName() + ")");
+        } else {
+            System.out.print("¿Deseas cargar personajes desde archivo CSV? (s/n): ");
+            String cargarDesdeCSV = scanner.nextLine();
 
-        // Batalla
+            if (cargarDesdeCSV.equalsIgnoreCase("s")) {
+                List<Character> lista = CharacterGenerator.loadCharactersFromCSV("characters.csv");
+                if (lista.size() >= 2) {
+                    player1 = lista.get(0);
+                    player2 = lista.get(1);
+                    System.out.println("\nSe han cargado los siguientes personajes desde CSV:");
+                    System.out.println("- " + player1.getName() + " (" + player1.getClass().getSimpleName() + ")");
+                    System.out.println("- " + player2.getName() + " (" + player2.getClass().getSimpleName() + ")");
+                } else {
+                    System.out.println("No hay suficientes personajes en el archivo. Se usarán personajes manuales.");
+                    player1 = crearPersonajeManual(scanner, "Jugador 1");
+                    player2 = crearPersonajeManual(scanner, "Jugador 2");
+                }
+            } else {
+                player1 = crearPersonajeManual(scanner, "Jugador 1");
+                player2 = crearPersonajeManual(scanner, "Jugador 2");
+            }
+        }
+
         System.out.println("\n--- ¡Comienza la batalla entre " + player1.getName() + " y " + player2.getName() + "! ---");
 
         while (true) {
@@ -48,28 +70,44 @@ public class BattleSimulator {
         scanner.close();
     }
 
-    private static Character createCharacter(Scanner scanner, String name) {
+    private static Character crearPersonajeManual(Scanner scanner, String etiqueta) {
         Random rand = new Random();
+        System.out.print("Nombre para " + etiqueta + ": ");
+        String nombre = scanner.nextLine();
         System.out.print("Tipo de personaje (1 = Guerrero, 2 = Mago): ");
-        int type = scanner.nextInt();
+        int tipo = scanner.nextInt();
         scanner.nextLine(); // limpiar buffer
 
-        if (type == 1) {
-            int hp = rand.nextInt(101) + 100; // 100-200
-            int stamina = rand.nextInt(41) + 10; // 10-50
-            int strength = rand.nextInt(10) + 1; // 1-10
-            return new Warrior(name, hp, stamina, strength);
+        if (tipo == 1) {
+            int hp = rand.nextInt(101) + 100;
+            int stamina = rand.nextInt(41) + 10;
+            int strength = rand.nextInt(10) + 1;
+            return new Warrior(nombre, hp, stamina, strength);
         } else {
-            int hp = rand.nextInt(51) + 50; // 50-100
-            int mana = rand.nextInt(41) + 10; // 10-50
-            int intelligence = rand.nextInt(50) + 1; // 1-50
-            return new Wizard(name, hp, mana, intelligence);
+            int hp = rand.nextInt(51) + 50;
+            int mana = rand.nextInt(41) + 10;
+            int intelligence = rand.nextInt(50) + 1;
+            return new Wizard(nombre, hp, mana, intelligence);
+        }
+    }
+
+    private static Character generarPersonajeAleatorio(String nombre) {
+        Random rand = new Random();
+        if (rand.nextBoolean()) {
+            return new Warrior(nombre + " el Guerrero",
+                    rand.nextInt(101) + 100,
+                    rand.nextInt(41) + 10,
+                    rand.nextInt(10) + 1);
+        } else {
+            return new Wizard(nombre + " el Mago",
+                    rand.nextInt(51) + 50,
+                    rand.nextInt(41) + 10,
+                    rand.nextInt(50) + 1);
         }
     }
 
     private static int randomHp(Character c) {
         Random rand = new Random();
-        if (c instanceof Warrior) return rand.nextInt(101) + 100;
-        else return rand.nextInt(51) + 50;
+        return (c instanceof Warrior) ? rand.nextInt(101) + 100 : rand.nextInt(51) + 50;
     }
 }
