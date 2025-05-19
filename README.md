@@ -11,10 +11,10 @@ This is a turn-based RPG Battle Simulator developed in Java. Players can create 
 
 ## Project Structure
 
-├── BattleSimulator.java // Main entry point and game loop
-├── Character.java // Abstract base class (or interface) for all characters
-├── Warrior.java // Warrior subclass with stamina-based attacks
-├── Wizard.java // Wizard subclass with mana-based attacks
+-├── BattleSimulator.java // Main entry point and game loop
+-├── Character.java // Abstract base class (or interface) for all characters
+-├── Warrior.java // Warrior subclass with stamina-based attacks
+-├── Wizard.java // Wizard subclass with mana-based attacks
 
 ## Functionalities & Class Design
 
