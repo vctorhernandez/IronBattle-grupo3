@@ -2,12 +2,33 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BattleSimulator {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Character player1 = null;
-        Character player2 = null;
+        int choice;
 
-        System.out.println("=== RPG Battle Simulator ===");
+        do {
+            System.out.println("\n=== RPG Battle Simulator ===");
+            System.out.println("1. Batalla personalizada");
+            System.out.println("2. Batalla aleatoria");
+            System.out.println("3. Salir");
+            System.out.print("Elige una opción: ");
+            choice = scanner.nextInt();
+            scanner.nextLine(); // limpiar buffer
+
+            switch (choice) {
+                case 1 -> manualBattle(scanner);
+                case 2 -> RandomBattleSimulator.simulateBattle();
+                case 3 -> System.out.println("¡Hasta luego!");
+                default -> System.out.println("Opción no válida. Intenta de nuevo.");
+            }
+        } while (choice != 3);
+
+        scanner.close();
+    }
+
+    private static void manualBattle(Scanner scanner) {
+        Character player1, player2;
 
         // Crear primer personaje
         System.out.print("Nombre del primer personaje: ");
@@ -19,11 +40,12 @@ public class BattleSimulator {
         String name2 = scanner.nextLine();
         player2 = createCharacter(scanner, name2);
 
-        // Batalla
-        System.out.println("\n--- ¡Comienza la batalla entre " + player1.getName() + " y " + player2.getName() + "! ---");
+        System.out.println("\n--- ¡Comienza la batalla entre " +
+                player1.getName() + " y " + player2.getName() + "! ---");
 
         while (true) {
             player1.attack(player2);
+            if (!player2.isAlive()) break;
             player2.attack(player1);
 
             System.out.println(player1.getName() + " (HP: " + player1.getHp() + ")");
@@ -32,10 +54,8 @@ public class BattleSimulator {
 
             if (!player1.isAlive() && !player2.isAlive()) {
                 System.out.println("¡Empate! Reiniciando la batalla...");
-                player1.setHp(randomHp(player1));
-                player2.setHp(randomHp(player2));
-                player1.setIsAlive(true);
-                player2.setIsAlive(true);
+                resetCharacter(player1);
+                resetCharacter(player2);
             } else if (!player1.isAlive()) {
                 System.out.println(player2.getName() + " gana la batalla.");
                 break;
@@ -44,8 +64,6 @@ public class BattleSimulator {
                 break;
             }
         }
-
-        scanner.close();
     }
 
     private static Character createCharacter(Scanner scanner, String name) {
@@ -67,9 +85,13 @@ public class BattleSimulator {
         }
     }
 
-    private static int randomHp(Character c) {
+    private static void resetCharacter(Character c) {
         Random rand = new Random();
-        if (c instanceof Warrior) return rand.nextInt(101) + 100;
-        else return rand.nextInt(51) + 50;
+        if (c instanceof Warrior) {
+            c.setHp(rand.nextInt(101) + 100);
+        } else {
+            c.setHp(rand.nextInt(51) + 50);
+        }
+        c.setIsAlive(true);
     }
 }
