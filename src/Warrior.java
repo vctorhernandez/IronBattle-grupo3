@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Warrior extends Character implements Attacker {
