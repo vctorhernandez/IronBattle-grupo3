@@ -57,63 +57,52 @@ Desde ahí podrás elegir entre:
 
 ---
 
----
 ## Funcionalidades y diseño de clases
 Este proyecto está construido utilizando principios de programación orientada a objetos con la siguiente estructura:
 
 ### Interfaz: Attacker
-Define un método común:
+-Define un método común:
 
-attack(Character target): Todos los personajes (Guerrero y Mago) implementan este método, cada uno con su propia lógica.
+ -attack(Character target): Todos los personajes (Guerrero y Mago) implementan este método, cada uno con su propia lógica.
 
 ### Clase abstracta: Character
 Clase base para todos los personajes en el juego. Incluye:
 
-id – Identificador único generado automáticamente (String)
-
-name – Nombre del personaje (String)
-
-hp – Puntos de salud (int)
-
-Valor aleatorio: 100–200 para Guerreros, 50–100 para Magos
-
-isAlive – Indica si el personaje sigue con vida (boolean)
+- id – Identificador único generado automáticamente (String)
+- name – Nombre del personaje (String)
+- hp – Puntos de salud (int)
+- Valor aleatorio: 100–200 para Guerreros, 50–100 para Magos
+- isAlive – Indica si el personaje sigue con vida (boolean)
 
 Incluye:
-
-Constructor con name y hp
-
-Métodos getter y setter para todos los campos
+- Constructor con name y hp
+- Métodos getter y setter para todos los campos
 
 ### Clase: Warrior (extiende Character)
 Un luchador físico cuerpo a cuerpo que depende de resistencia y fuerza:
 
-stamina – Valor aleatorio entre 10–50 (int)
-
-strength – Valor aleatorio entre 1–10 (int)
+- stamina – Valor aleatorio entre 10–50 (int)
+- strength – Valor aleatorio entre 1–10 (int)
 
 Lógica de ataque:
 Cada ronda, el guerrero realiza aleatoriamente un Ataque Pesado o un Ataque Débil:
 
-Ataque Pesado: Daño total = fuerza, cuesta 5 de resistencia
-
-Ataque Débil: Daño a la mitad (redondeado hacia abajo), recupera 1 de resistencia
+- Ataque Pesado (**Heavy Attack** ): Daño total = fuerza, cuesta 5 de resistencia
+- Ataque Débil (**Weak Attack**): Daño a la mitad (redondeado hacia abajo), recupera 1 de resistencia
 
 Si no hay suficiente resistencia para un ataque débil, no se realiza daño y se recuperan 2 de resistencia
 
 ### Clase: Wizard (extiende Character)
 Un hechicero que depende de maná e inteligencia:
 
-mana – Valor aleatorio entre 10–50 (int)
-
-intelligence – Valor aleatorio entre 1–50 (int)
+- mana – Valor aleatorio entre 10–50 (int)
+- intelligence – Valor aleatorio entre 1–50 (int)
 
 Lógica de ataque:
 Cada ronda, el mago lanza aleatoriamente un Bola de Fuego o usa un Golpe de Bastón:
 
-Bola de Fuego: Daño total = inteligencia, cuesta 5 de maná
-
-Golpe de Bastón: Realiza 2 de daño, recupera 1 de maná
+- Bola de Fuego: Daño total = inteligencia, cuesta 5 de maná
+- Golpe de Bastón: Realiza 2 de daño, recupera 1 de maná
 
 Si no hay suficiente maná para un golpe de bastón, no se realiza daño y se recuperan 2 de maná
 
