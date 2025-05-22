@@ -92,17 +92,17 @@ Winner: Wizard
 ##  Estructura de Carpetas
 
 ```
-├── Character.java
-├── Warrior.java
-├── Wizard.java
-├── Attacker.java
-├── BattleSimulator.java
-├── CharacterImporter.java
-├── character.csv
-├── .gitignore
-├── README.md
+Character.java
+Warrior.java
+Wizard.java
+Attacker.java
+BattleSimulator.java
+CharacterImporter.java
+character.csv
+.gitignore
+README.md
 ```
 
 ---
 
-Hasta la próxima!
+Fin
